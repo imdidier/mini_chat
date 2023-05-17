@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mini_chat/domain/entities/message.dart';
 
-class HerMessagueBubble extends StatelessWidget {
-  const HerMessagueBubble({super.key});
+class HerMessageBubble extends StatelessWidget {
+  final Message message;
+  const HerMessageBubble({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +12,7 @@ class HerMessagueBubble extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 50,
-          width: 250,
+          height: 35,
           padding: const EdgeInsets.symmetric(
             horizontal: 15,
             vertical: 6,
@@ -20,17 +21,16 @@ class HerMessagueBubble extends StatelessWidget {
             color: colors.secondary,
             borderRadius: BorderRadius.circular(15),
           ),
-          child: const Text(
-            'Ipsum dolor pariatur elit culpa nulla ',
-            maxLines: 3,
+          child: Text(
+            message.text,
           ),
         ),
         const SizedBox(
           height: 5,
         ),
-        const _ImageBubble(),
+        _ImageBubble(imageUrl: message.imageUrl!),
         const SizedBox(
-          height: 15,
+          height: 5,
         ),
       ],
     );
@@ -38,7 +38,8 @@ class HerMessagueBubble extends StatelessWidget {
 }
 
 class _ImageBubble extends StatelessWidget {
-  const _ImageBubble();
+  final String imageUrl;
+  const _ImageBubble({required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class _ImageBubble extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
-        'https://i1.sndcdn.com/artworks-l6LWYksUxAeSRDul-wt4vPQ-t500x500.jpg',
+        imageUrl,
         height: 300,
         width: size.width * 0.6,
         fit: BoxFit.cover,
